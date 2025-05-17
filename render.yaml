@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: flask-app
+    env: python
+    region: oregon  # or your preferred region
+    plan: free      # change to 'starter' or 'standard' if needed
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python app.py"
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: PORT
+        value: 10000
+    autoDeploy: true
