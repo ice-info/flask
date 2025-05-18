@@ -1,28 +1,49 @@
-# app.py
-from flask import Flask
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from models import shoe, db
 
 app = Flask(__name__)
+<<<<<<< HEAD
+
+# Configure your database URI here (using SQLite for example)
+=======
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+>>>>>>> dcb08cef68063505136d6baebeeffbcae623dec8
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///yourdatabase.db'
+db.init_app(app)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# Initialize extensions
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-from models import *  # Ensure models are imported
+# Define a simple model example
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
 
-from flask import Flask
+    def __repr__(self):
+        return f'<User {self.username}>'
 
-app = Flask(__name__)
-
+# Basic route
 @app.route('/')
 def home():
-    return "Hello, Flask!"
+    return "Hello, Flask with database!"
+@app.route('/shoes')
+def show_shoes():
+    shoes = Shoe.query.all()
+    return render_template('shoes.html', shoes=shoes)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=True)
+<<<<<<< HEAD
+=======
 
 
 
 
+
+>>>>>>> dcb08cef68063505136d6baebeeffbcae623dec8
 
