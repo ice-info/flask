@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shoe Collection</title>
+</head>
+<body>
+    <h1>Available Shoes</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Brand</th>
+            <th>Price (£)</th>
+            <th>Size</th>
+            <th>Stock</th>
+        </tr>
+        {% for shoe in shoes %}
+        <tr>
+            <td>{{ shoe.id }}</td>
+            <td>{{ shoe.name }}</td>
+            <td>{{ shoe.brand }}</td>
+            <td>{{ shoe.price }}</td>
+            <td>{{ shoe.size }}</td>
+            <td>{{ shoe.stock }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
