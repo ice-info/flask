@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from models import shoe, db
+from models import Shoe, db
 
 app = Flask(__name__)
 
