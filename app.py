@@ -4,12 +4,8 @@ from flask_migrate import Migrate
 from models import shoe, db
 
 app = Flask(__name__)
-<<<<<<< HEAD
 
 # Configure your database URI here (using SQLite for example)
-=======
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
->>>>>>> dcb08cef68063505136d6baebeeffbcae623dec8
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///yourdatabase.db'
 db.init_app(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
@@ -38,12 +34,11 @@ def show_shoes():
 
 if __name__ == '__main__':
     app.run(debug=True)
-<<<<<<< HEAD
-=======
 
 
+# If you want both:
+print("Hello from local version!")
+print("Hello from GitHub version!")
 
 
-
->>>>>>> dcb08cef68063505136d6baebeeffbcae623dec8
 
