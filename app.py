@@ -1,44 +1,37 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
-from models import Shoe, db
+from models import Shoe, db  # Import your model and database instance
+import os
 
 app = Flask(__name__)
-
-# Configure your database URI here (using SQLite for example)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///yourdatabase.db'
-db.init_app(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///shoes.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Initialize extensions
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+db.init_app(app)
 
-# Define a simple model example
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-
-    def __repr__(self):
-        return f'<User {self.username}>'
-
-# Basic route
+# Home Route
 @app.route('/')
 def home():
     return "Hello, Flask with database!"
+
+# Shoes Route
 @app.route('/shoes')
 def show_shoes():
-    shoes = Shoe.query.all()
-    return render_template('shoes.html', shoes=shoes)
+    try:
+        shoes = Shoe.query.all()
+        return render_template('shoes.html', shoes=shoes)
+    except Exception as e:
+        return f"An error occurred: {str(e)}"
+
+# Create Database if not exists
+@app.before_first_request
+def create_tables():
+    db.create_all()
+    print("Database created successfully!")
 
 if __name__ == '__main__':
     app.run(debug=True)
 
-
-# If you want both:
-print("Hello from local version!")
-print("Hello from GitHub version!")
 
 
 
